@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/results.css">
+        <title><%= Location %></title>
+</head>
+<body>
+        <div class="container">
+                <div class="location">
+                        <h1><%= Location%></h1>
+                        <p>Latitude: <%= latitude %> | Longitude: <%= longitude %></p>
+                </div>
+                <div class="current-weather">
+                        <p><strong>Temperature:</strong> <%= temperature %>°C</p>
+                        <p><strong>Wind Speed:</strong> <%= windSpeed %> km/h</p>
+                        <p><strong>Wind Direction:</strong> <%= windDirection %>°</p>
+                </div>
+                <div class="hourly-forecast">
+                        <% for(let i=0;i<24;i++) { %>
+                                <% let code = weathercode[i] %>
+                                <% let url %>
+                                <% let alt %>
+
+                                <% if(code>=0 && code<=3) {url = "../assets/sunny.png"; alt = "sunny" } %>
+                                <% if(code>=45 && code<=48) {url = "../assets/fog.png"; alt = "fog" } %>
+                                <% if(code>=51 && code<=57) {url = "../assets/drizzle.png"; alt = "drizzle" } %>
+                                <% if(code>=61 && code<=67) {url = "../assets/heavy-rain.png"; alt ="heavy-rain" } %>
+                                <% if(code>=71 && code<=77) {url = "../assets/snow.png"; alt = "snow" } %>
+                                <% if(code>=80 && code<=99) {url = "../assets/thunderstorm.png"; alt = "thunderstorm" } %>
+                                
+                                <div class="weather">
+                                        <img src=<%=url %> alt=<%= alt %>>
+                                        <% if(i==0) { %> <p>12:00:00am <br>
+                                                <%= hourlyTemp[i].toFixed(1) %>°C</p> <% } %>
+                                        <% if (i>0 && i<12) { %><p><%=i%>:00:00am <br>
+                                                <%= hourlyTemp[i].toFixed(1) %>°C</p><% } %>
+                                        <% if (i==12) { %><p>12:00:00pm <br>
+                                                <%= hourlyTemp[i].toFixed(1) %>°C</p><% } %>
+                                        <% if (i>12) { %><p><%= i-12 %>:00:00pm <br>
+                                                <%= hourlyTemp[i].toFixed(1) %>°C</p><% } %>
+                                </div>
+                        <% } %>
+                </div>
+        </div>
+</body>
+</html>
